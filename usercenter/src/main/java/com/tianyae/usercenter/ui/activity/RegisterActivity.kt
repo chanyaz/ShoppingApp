@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Toast
 import com.tianyae.usercenter.R
 import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -13,7 +16,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         mRegisterBtn.setOnClickListener({
-            Toast.makeText(this, "注册", Toast.LENGTH_SHORT).show()
+            startActivity(intentFor<TestActivity>("id" to 15))
+//            startActivity<TestActivity>("id" to 10)
+            toast("注册")
         })
     }
 }
