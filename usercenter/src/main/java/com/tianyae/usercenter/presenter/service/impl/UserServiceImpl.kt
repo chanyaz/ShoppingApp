@@ -1,25 +1,23 @@
 package com.tianyae.usercenter.presenter.service.impl
 
-import com.tianyae.baselibrary.data.protocol.BaseRespone
-import com.tianyae.baselibrary.rx.BaseExceptioon
+import com.tianyae.baselibrary.ext.convert
+import com.tianyae.baselibrary.rx.BaseFunc
+import com.tianyae.baselibrary.rx.BaseFuncBoolean
+import com.tianyae.baselibrary.rx.BaseFuncString
 import com.tianyae.usercenter.data.respository.UserRepository
 import com.tianyae.usercenter.presenter.service.UserService
 import io.reactivex.Observable
-import io.reactivex.functions.Function
+import javax.inject.Inject
 
-class UserServiceImpl : UserService {
-    override fun register(mobile: String, verifyCode: String, pwd: String): Observable<Boolean> {
+class UserServiceImpl @Inject constructor(): UserService {
 
-        val repository = UserRepository()
+    @Inject
+    lateinit var repository: UserRepository
 
+    override fun register(mobile: String, verifyCode: String, pwd: String): Observable<String> {
 
         return repository.register(mobile, verifyCode, pwd)
-                .flatMap(Function<BaseRespone<String>, Observable<Boolean>> { t ->
-                    if (t.status != 0) {
-                        return@Function Observable.error(BaseExceptioon(t.status, t.message))
-                    }
-                    Observable.just(true)
-                })
+                .convert()
 
     }
 }
