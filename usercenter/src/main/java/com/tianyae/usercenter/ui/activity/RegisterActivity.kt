@@ -3,6 +3,7 @@ package com.tianyae.usercenter.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.tianyae.baselibrary.common.AppManager
+import com.tianyae.baselibrary.ext.enable
 import com.tianyae.baselibrary.ext.onClick
 import com.tianyae.baselibrary.ui.activity.BaseMvpActivity
 import com.tianyae.usercenter.R
@@ -13,9 +14,14 @@ import com.tianyae.usercenter.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
-class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
 
-    private var pressTime : Long = 0
+    /*
+        注册界面
+    */
+
+class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, View.OnClickListener {
+
+    private var pressTime: Long = 0
 
     override fun onRegisterResult(result: String) {
         toast(result)
@@ -24,15 +30,25 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        mRegisterBtn.onClick {
+        initView()
 
-            mPresenter.register(mMobileEt.text.toString(), mVerifyEt.text.toString(), mPwdEt.text.toString())
 
-        }
-        mGetVerifyCodeBtn.setOnClickListener({
-            //            mPresenter.register2(mMobileEt.text.toString(), mVerifyEt.text.toString(), mPwdEt.text.toString())
+    }
 
-        })
+
+    /*
+        初始化视图
+     */
+    private fun initView() {
+
+        mRegisterBtn.enable(mMobileEt, { isBtnEnable() })
+        mRegisterBtn.enable(mVerifyCodeEt, { isBtnEnable() })
+        mRegisterBtn.enable(mPwdEt, { isBtnEnable() })
+        mRegisterBtn.enable(mPwdConfirmEt, { isBtnEnable() })
+
+
+        mRegisterBtn.onClick(this)
+        mVerifyCodeBtn.onClick(this)
     }
 
 
@@ -51,6 +67,25 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
         } else {
             AppManager.instance.exitApp(this)
         }
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.mVerifyCodeBtn -> {
+                mVerifyCodeBtn.requestSendVerifyNumber()
+                toast("发送验证码成功")
+            }
+            R.id.mRegisterBtn -> {
+                mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPwdEt.text.toString())
+            }
+        }
+    }
+
+    private fun isBtnEnable(): Boolean {
+        return mMobileEt.text.isNullOrEmpty().not() &&
+                mVerifyCodeEt.text.isNullOrEmpty().not() &&
+                mPwdEt.text.isNullOrEmpty().not() &&
+                mPwdConfirmEt.text.isNullOrEmpty().not()
     }
 
 }

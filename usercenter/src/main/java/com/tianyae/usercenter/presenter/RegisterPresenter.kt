@@ -15,7 +15,7 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     lateinit var userService: UserService
 
 
-    fun register(mobile: String, verifyCode: String, pwd: String) {
+      fun register(mobile: String, verifyCode: String, pwd: String) {
         /*
         业务逻辑
          */
@@ -38,6 +38,7 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
                     }
                 }, lifecycleProvider)
     }
+
 
 
 }

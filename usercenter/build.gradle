@@ -72,6 +72,7 @@ dependencies {
     implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rx_lifecycle_version"
     // If you want to use Kotlin syntax
     implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"
+
 }
 
 
