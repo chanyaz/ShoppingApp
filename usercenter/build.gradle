@@ -2,7 +2,6 @@ if (isUserModule.toBoolean()) {
     apply plugin: 'com.android.library'
 } else {
     apply plugin: 'com.android.application'
-
 }
 
 
@@ -43,6 +42,9 @@ android {
     }
 
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -65,7 +67,11 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
 
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rx_lifecycle_version"
+    // If you want to use Kotlin syntax
+    implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rx_lifecycle_version"
 }
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+
