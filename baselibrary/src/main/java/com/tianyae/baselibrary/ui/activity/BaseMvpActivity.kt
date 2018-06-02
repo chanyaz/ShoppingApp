@@ -19,7 +19,7 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
 
     lateinit var mActivityComponent: ActivityComponent
 
-    lateinit var mLoadingDialog: ProgressLoading
+    private lateinit var mLoadingDialog: ProgressLoading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
