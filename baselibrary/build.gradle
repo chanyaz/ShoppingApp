@@ -62,6 +62,9 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circle_imageView_version"
     implementation "com.jph.takephoto:takephoto_library:$take_photo_version"
     implementation "com.bigkoo:alertview:$alert_view_version"
+
+    implementation "com.qiniu:qiniu-android-sdk:$qiniu_version"
+
 }
 repositories {
     mavenCentral()

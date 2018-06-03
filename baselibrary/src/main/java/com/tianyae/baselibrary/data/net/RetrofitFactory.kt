@@ -1,5 +1,6 @@
 package com.tianyae.baselibrary.data.net
 
+import com.kotlin.base.utils.AppPrefsUtils
 import com.tianyae.baselibrary.common.BaseConstant
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,6 +24,7 @@ class RetrofitFactory private constructor() {
                     .newBuilder()
                     .addHeader("Content-Type", "application/json")
                     .addHeader("charset", "utf-8")
+                    .addHeader("token", AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                     .build()
             chain.proceed(request)
         }

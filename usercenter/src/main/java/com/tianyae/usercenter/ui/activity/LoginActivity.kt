@@ -2,10 +2,12 @@ package com.tianyae.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.kotlin.user.utils.UserPrefsUtils
 import com.tianyae.baselibrary.ext.enable
 import com.tianyae.baselibrary.ext.onClick
 import com.tianyae.baselibrary.ui.activity.BaseMvpActivity
 import com.tianyae.usercenter.R
+import com.tianyae.usercenter.data.protocol.UserInfo
 import com.tianyae.usercenter.injection.component.DaggerUserComponent
 import com.tianyae.usercenter.injection.module.UserModule
 import com.tianyae.usercenter.presenter.LoginPresenter
@@ -21,10 +23,6 @@ import org.jetbrains.anko.toast
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
 
-
-    override fun onLoginResult(result: String) {
-        toast(result)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,5 +70,15 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         return mMobileEt.text.isNullOrEmpty().not() &&
                 mPwdEt.text.isNullOrEmpty().not()
     }
+
+
+    override fun onLoginResult(result: UserInfo) {
+        toast("登陆成功")
+        UserPrefsUtils.putUserInfo(result)
+
+        startActivity<UserInfoActivity>()
+
+    }
+
 
 }
