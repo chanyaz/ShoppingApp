@@ -4,10 +4,10 @@ class BaseConstant {
     companion object {
 
         //七牛服务地址
-        const val IMAGE_SERVER_ADDRESS = "    "
+        const val IMAGE_SERVER_ADDRESS = "http://osea2fxp7.bkt.clouddn.com/"
 
         //本地服务器地址
-        const val SERVER_ADDRESS = "http://10.1.208.177:8080/"
+        const val SERVER_ADDRESS = "http://10.0.2.2:8080/"
 
         //SP表名
         const val TABLE_PREFS = "Shopping_App"

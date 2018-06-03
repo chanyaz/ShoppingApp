@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ShoppingApp</string>
+    <string name="app_name" translatable="false">Shopping App</string>
+    <string name="un_login_text" translatable="false">登录/注册</string>
 </resources>

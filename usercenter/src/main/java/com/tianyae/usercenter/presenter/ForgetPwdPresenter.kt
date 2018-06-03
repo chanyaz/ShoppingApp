@@ -12,7 +12,6 @@ import javax.inject.Named
 class ForgetPwdPresenter @Inject constructor() : BasePresenter<ForgetPwdView>() {
 
     @Inject
-    @field:[Named("service")]
     lateinit var userService: UserService
 
 

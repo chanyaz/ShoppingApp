@@ -8,7 +8,7 @@ import com.tianyae.usercenter.presenter.service.UserService
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class UserServiceImpl @Inject constructor(): UserService {
+class UserServiceImpl @Inject constructor() : UserService {
 
 
     @Inject
@@ -23,8 +23,7 @@ class UserServiceImpl @Inject constructor(): UserService {
 
     override fun login(mobile: String, pushId: String, pwd: String): Observable<UserInfo> {
         return repository.login(mobile, pwd, pushId)
-                .convert
-        ()
+                .convert()
 
     }
 
@@ -39,5 +38,11 @@ class UserServiceImpl @Inject constructor(): UserService {
                 .convertString()
 
     }
+
+    override fun editUser(userIcon: String, userName: String, userGender: String, userSign: String): Observable<UserInfo> {
+        return repository.editUser(userIcon, userName, userGender, userSign)
+                .convert()
+    }
+
 
 }

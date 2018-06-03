@@ -19,4 +19,7 @@ interface UserApi {
     @POST("userCenter/resetPwd")
     fun resetPwd(@Body req:ResetPwdRequest):Observable<BaseResponse<UserInfo>>
 
+    @POST("userCenter/editUser")
+    fun editUser(@Body req:EditUserRequest):Observable<BaseResponse<UserInfo>>
+
 }

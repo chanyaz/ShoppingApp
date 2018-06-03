@@ -12,7 +12,6 @@ import javax.inject.Named
 class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
 
     @Inject
-    @field:[Named("service")]
     lateinit var userService: UserService
 
 

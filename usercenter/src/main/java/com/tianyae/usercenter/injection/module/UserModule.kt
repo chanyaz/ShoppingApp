@@ -8,10 +8,11 @@ import javax.inject.Named
 
 @Module
 class UserModule {
+
     @Provides
-    @Named("service")
     fun provideUserService(userService: UserServiceImpl): UserService {
         return userService
     }
+
 
 }

@@ -11,7 +11,6 @@ import javax.inject.Named
 class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
 
     @Inject
-    @field:[Named("service")]
     lateinit var userService: UserService
 
 

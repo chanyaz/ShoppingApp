@@ -2,9 +2,9 @@ package com.tianyae.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.kotlin.user.utils.UserPrefsUtils
 import com.tianyae.baselibrary.ext.enable
 import com.tianyae.baselibrary.ext.onClick
+import com.tianyae.usercenter.utils.UserPrefsUtils
 import com.tianyae.baselibrary.ui.activity.BaseMvpActivity
 import com.tianyae.usercenter.R
 import com.tianyae.usercenter.data.protocol.UserInfo
@@ -75,7 +75,6 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onLoginResult(result: UserInfo) {
         toast("登陆成功")
         UserPrefsUtils.putUserInfo(result)
-
         startActivity<UserInfoActivity>()
 
     }

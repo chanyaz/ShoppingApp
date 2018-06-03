@@ -1,4 +1,4 @@
-package com.kotlin.user.utils
+package com.tianyae.usercenter.utils
 
 import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.provider.common.ProviderConstant

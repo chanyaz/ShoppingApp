@@ -12,7 +12,7 @@ import com.tianyae.baselibrary.widgets.ProgressLoading
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
+abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
 
     @Inject
     lateinit var mPresenter: T

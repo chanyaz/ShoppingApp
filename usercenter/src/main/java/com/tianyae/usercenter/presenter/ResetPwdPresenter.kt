@@ -13,7 +13,6 @@ import javax.inject.Named
 class ResetPwdPresenter @Inject constructor() : BasePresenter<ResetPwdView>() {
 
     @Inject
-    @field:[Named("service")]
     lateinit var userService: UserService
 
 

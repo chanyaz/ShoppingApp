@@ -19,11 +19,17 @@ import com.tianyae.baselibrary.ui.activity.BaseMvpActivity
 import com.tianyae.baselibrary.utils.GlideUtils
 import com.tianyae.usercenter.R
 import com.tianyae.usercenter.injection.component.DaggerUserComponent
-import com.tianyae.usercenter.injection.module.UserModule
+import com.tianyae.usercenter.injection.module.UploadModule
 import com.tianyae.usercenter.presenter.UserInfoPresenter
 import com.tianyae.usercenter.presenter.view.UserInfoView
-import kotlinx.android.synthetic.main.activity_user_info.*
 import java.io.File
+import com.kotlin.base.utils.AppPrefsUtils
+import com.kotlin.provider.common.ProviderConstant
+import com.tianyae.usercenter.utils.UserPrefsUtils
+import com.tianyae.baselibrary.ext.requestRxPermissions
+import com.tianyae.usercenter.data.protocol.UserInfo
+import kotlinx.android.synthetic.main.activity_user_info.*
+import org.jetbrains.anko.toast
 
 
 /*
@@ -32,15 +38,21 @@ import java.io.File
 
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, TakePhoto.TakeResultListener {
 
+
     private lateinit var mTakePhoto: TakePhoto
 
     private lateinit var mTempFile: File
 
     private val mUploadManager: UploadManager by lazy { UploadManager() }
 
-    private var mLocalFileUrl:String? = null
-    private var mRemoteFileUrl:String? = null
+    private var mLocalFileUrl: String? = null
+    private var mRemoteFileUrl: String? = null
 
+    private var mUserIcon: String? = null
+    private var mUserName: String? = null
+    private var mUserMobile: String? = null
+    private var mUserGender: String? = null
+    private var mUserSign: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +60,9 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
         mTakePhoto = TakePhotoImpl(this, this)
         mTakePhoto.onCreate(savedInstanceState)
 
+        requestRxPermissions(this)
         initView()
         initData()
-    }
-
-    private fun initData() {
-
     }
 
 
@@ -65,6 +74,38 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
             showAlertView()
         }
 
+        mHeaderBar.getRightView().onClick {
+            mPresenter.editUser("",
+                    mUserNameEt.text?.toString() ?: "",
+                    if (mGenderMaleRb.isChecked) "0" else "1",
+                    mUserSignEt.text?.toString() ?: "")
+        }
+
+    }
+
+
+    private fun initData() {
+        mUserIcon = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        mUserName = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+        mUserMobile = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_MOBILE)
+        mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
+        mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
+
+        if (mUserIcon != "") {
+            mRemoteFileUrl = mUserIcon
+            GlideUtils.loadUrlImage(this, mUserIcon!!, mUserIconIv)
+        }
+
+        mUserNameEt.setText(mUserName)
+        mUserMobileTv.text = mUserMobile
+
+        if (mUserGender == "0") {
+            mGenderMaleRb.isChecked = true
+        } else {
+            mGenderFemaleRb.isChecked = true
+        }
+
+        mUserSignEt.setText(mUserSign)
     }
 
     private fun showAlertView() {
@@ -88,7 +129,8 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
 
 
     override fun injectComponent() {
-        DaggerUserComponent.builder().activityComponent(mActivityComponent).userModule(UserModule()).build().inject(this)
+        DaggerUserComponent.builder().activityComponent(mActivityComponent).uploadModule(UploadModule()).build().inject(this)
+
         mPresenter.mView = this
     }
 
@@ -126,12 +168,18 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
     }
 
     override fun onGetUploadTokenResult(result: String) {
-        mUploadManager.put(mLocalFileUrl,null,result, { _, _, response ->
+        mUploadManager.put(mLocalFileUrl, null, result, { _, _, response ->
             mRemoteFileUrl = BaseConstant.IMAGE_SERVER_ADDRESS + response?.get("hash")
 
             Log.d("test", mRemoteFileUrl)
-            GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFileUrl!!,mUserIconIv)
-        },null)
+            GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFileUrl!!, mUserIconIv)
+        }, null)
+    }
+
+    override fun onEditUserResult(result: UserInfo) {
+        toast("修改成功")
+
+        UserPrefsUtils.putUserInfo(result)
     }
 
 }
