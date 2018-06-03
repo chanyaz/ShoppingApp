@@ -1,6 +1,8 @@
 package com.tianyae.usercenter.presenter.service.impl
 
+import com.tianyae.baselibrary.ext.convert
 import com.tianyae.baselibrary.ext.convertString
+import com.tianyae.usercenter.data.protocol.UserInfo
 import com.tianyae.usercenter.data.respository.UserRepository
 import com.tianyae.usercenter.presenter.service.UserService
 import io.reactivex.Observable
@@ -19,9 +21,10 @@ class UserServiceImpl @Inject constructor(): UserService {
 
     }
 
-    override fun login(mobile: String, pushId: String, pwd: String): Observable<String> {
+    override fun login(mobile: String, pushId: String, pwd: String): Observable<UserInfo> {
         return repository.login(mobile, pwd, pushId)
-                .convertString()
+                .convert
+        ()
 
     }
 
