@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.tianyae.baselibrary.R
 import com.tianyae.baselibrary.ext.onClick
@@ -20,7 +21,7 @@ class HeaderBar @JvmOverloads constructor(
     private var rightText: String? = null
 
     init {
-        val typeArray = context.obtainStyledAttributes(attrs,R.styleable.HeaderBar)
+        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.HeaderBar)
         isShowBack = typeArray.getBoolean(R.styleable.HeaderBar_isShowBack, true)
         titleText = typeArray.getString(R.styleable.HeaderBar_titleText)
         rightText = typeArray.getString(R.styleable.HeaderBar_rightText)
@@ -30,7 +31,7 @@ class HeaderBar @JvmOverloads constructor(
     }
 
     private fun initView() {
-        View.inflate(context, R.layout.layout_header_bar,this)
+        View.inflate(context, R.layout.layout_header_bar, this)
         mLeftIv.visibility = if (isShowBack) View.VISIBLE else View.GONE
 
         titleText?.let {
@@ -49,8 +50,25 @@ class HeaderBar @JvmOverloads constructor(
         }
     }
 
-    fun getRightView():TextView {
+    /*
+        获取左侧视图
+     */
+    fun getLeftView(): ImageView {
+        return mLeftIv
+    }
+
+    /*
+        获取右侧视图
+     */
+    fun getRightView(): TextView {
         return mRightTv
+    }
+
+    /*
+        获取右侧文字
+     */
+    fun getRightText(): String {
+        return mRightTv.text.toString()
     }
 
 }

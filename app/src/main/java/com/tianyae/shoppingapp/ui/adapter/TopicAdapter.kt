@@ -1,4 +1,4 @@
-package com.tianyae.shoppingapp.ui.fragment
+package com.tianyae.shoppingapp.ui.adapter
 
 import android.content.Context
 import android.support.v4.view.PagerAdapter

@@ -2,10 +2,12 @@ package com.tianyae.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.tianyae.baselibrary.ext.enable
 import com.tianyae.baselibrary.ext.onClick
 import com.tianyae.usercenter.utils.UserPrefsUtils
 import com.tianyae.baselibrary.ui.activity.BaseMvpActivity
+import com.tianyae.provider.router.RouterPath
 import com.tianyae.usercenter.R
 import com.tianyae.usercenter.data.protocol.UserInfo
 import com.tianyae.usercenter.injection.component.DaggerUserComponent
@@ -20,7 +22,7 @@ import org.jetbrains.anko.toast
 /*
     登陆界面
 */
-
+@Route(path = RouterPath.UserCenter.PATH_LOGIN)
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
 
 
@@ -75,7 +77,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
     override fun onLoginResult(result: UserInfo) {
         toast("登陆成功")
         UserPrefsUtils.putUserInfo(result)
-        startActivity<UserInfoActivity>()
+        finish()
 
     }
 

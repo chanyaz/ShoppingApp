@@ -6,15 +6,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.tianyae.baselibrary.ext.onClick
 import com.tianyae.baselibrary.ui.fragment.BaseFragment
 import com.tianyae.baselibrary.widgets.BannerImageLoader
+import com.tianyae.goodscenter.ui.activity.SearchGoodsActivity
 import com.tianyae.shoppingapp.R
 import com.tianyae.shoppingapp.common.*
 import com.tianyae.shoppingapp.ui.adapter.HomeDiscountAdapter
+import com.tianyae.shoppingapp.ui.adapter.TopicAdapter
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import com.youth.banner.Transformer
 import me.crosswall.lib.coverflow.CoverFlow
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class HomeFragment : BaseFragment() {
 
@@ -26,12 +31,25 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initBanner()
         initNews()
         initDiscount()
         initTopic()
     }
 
+    /*
+        初始化视图
+     */
+    private fun initView() {
+        mSearchEt.onClick {
+            startActivity<SearchGoodsActivity>()
+        }
+
+        mScanIv.onClick {
+            toast(R.string.coming_soon_tip)
+        }
+    }
 
     /*
         初始化Banner

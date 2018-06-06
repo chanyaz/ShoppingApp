@@ -28,12 +28,19 @@ android {
 
 }
 
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+
 
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$android_support_version"
@@ -70,7 +77,10 @@ dependencies {
     implementation "com.ashokvarma.android:bottom-navigation-bar:$bottom_navigation_bar_version"
 
     implementation "com.youth.banner:banner:$banner_version"
+    implementation "com.github.Kennyc1012:MultiStateView:$multi_state_view_version"
 
+    implementation "com.alibaba:arouter-api:$arouter_api_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 
 }
 repositories {

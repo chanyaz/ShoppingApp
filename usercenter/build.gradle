@@ -3,6 +3,9 @@ if (isUserModule.toBoolean()) {
 } else {
     apply plugin: 'com.android.application'
 }
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 
@@ -38,22 +41,25 @@ android {
         }
     }
 
-
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 
 }
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation project(':baselibrary')
 
@@ -93,6 +99,9 @@ dependencies {
     implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rxpermissions_version@aar"
     implementation "com.ashokvarma.android:bottom-navigation-bar:$bottom_navigation_bar_version"
     implementation project(':provider')
+    implementation "com.alibaba:arouter-api:$arouter_api_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
 }
 repositories {
     mavenCentral()

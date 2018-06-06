@@ -15,4 +15,6 @@
     <string name="nav_bar_cart">购物车</string>
     <string name="nav_bar_msg">消息</string>
     <string name="nav_bar_user">我的</string>
+    <string name="context_null">未找到</string>
+    <string name="context_not_login">请先登录</string>
 </resources>

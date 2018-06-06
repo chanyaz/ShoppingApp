@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tianyae.baselibrary.ui.adapter.BaseRecycleViewAdapter
+import com.tianyae.baselibrary.ui.adapter.BaseRecyclerViewAdapter
 import com.tianyae.baselibrary.utils.GlideUtils
 import com.tianyae.shoppingapp.R
 import kotlinx.android.synthetic.main.layout_home_discount_item.view.*
 
-class HomeDiscountAdapter(context: Context) : BaseRecycleViewAdapter<String, HomeDiscountAdapter.ViewHolder>(context) {
+class HomeDiscountAdapter(context: Context) : BaseRecyclerViewAdapter<String, HomeDiscountAdapter.ViewHolder>(context) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

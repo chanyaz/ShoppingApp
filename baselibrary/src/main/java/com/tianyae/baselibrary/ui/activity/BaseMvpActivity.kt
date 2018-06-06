@@ -8,6 +8,7 @@ import com.tianyae.baselibrary.injection.module.ActivityModule
 import com.tianyae.baselibrary.injection.module.LifecycleProviderModule
 import com.tianyae.baselibrary.presenter.BasePresenter
 import com.tianyae.baselibrary.presenter.view.BaseView
+import com.tianyae.baselibrary.rx.BaseException
 import com.tianyae.baselibrary.widgets.ProgressLoading
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -46,8 +47,10 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
         mLoadingDialog.hideLoading()
     }
 
-    override fun onError(text: String) {
-        toast(text)
+
+    override fun onError(exception: BaseException) {
+        toast(exception.msg)
+
     }
 
 

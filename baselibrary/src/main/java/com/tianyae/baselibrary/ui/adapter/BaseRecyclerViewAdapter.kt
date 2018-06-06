@@ -3,7 +3,7 @@ package com.tianyae.baselibrary.ui.adapter
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 
-abstract class BaseRecycleViewAdapter<T, VH : RecyclerView.ViewHolder>(var mContext: Context) : RecyclerView.Adapter<VH>() {
+abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(var mContext: Context) : RecyclerView.Adapter<VH>() {
 
 
     var mItemClickListener: OnItemClickListener<T>? = null
